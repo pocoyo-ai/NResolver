@@ -1,7 +1,6 @@
-# autodhcp
+# DHCP Resolver
 
-Descripción: Realiza la instalación DHCP de manera automática.
-
+Primer shell desarrollado con el objetivo de realizar una instalación limpia de DHCP entre dos equipos virtuales.
 
 Instalación:
   1. Git clone https://github.com/pocoyo-ai/autodhcp/
@@ -12,4 +11,4 @@ Utilización:
   
 RULZZ ~~~~
 
-Programa de uso educacional, sin previo conocimiento de DHCP, DNS, Ftp.
+Programa de utilización educacional.
