@@ -1,19 +1,19 @@
 #!/bin/bash
 
 # Versión inicial v0.1
-# Descripción: Entorno de terminal para la resolución de servicios en instalaciones predefinidas
-# Se recomienda utilizar bajo nuevas intalaciones
+# Descripción: Entorno shell para la resolución de servicios en instalaciones virtuales.
+# Se recomienda utilizar bajo nuevas intalaciones virtuales.
 
 echo ''
 echo '______________________________________________________________________________________'
 echo '                                                                                      '
-echo ' ______     ______     ______     ______     __         __   __   ______     ______   '
-echo '/\  == \   /\  ___\   /\  ___\   /\  __ \   /\ \       /\ \ / /  /\  ___\   /\  == \  '
-echo "\ \  __<   \ \  __\   \ \___  \  \ \ \/\ \  \ \ \____  \ \ \'/   \ \  __\   \ \  __<  "
-echo ' \ \_\ \_\  \ \_____\  \/\_____\  \ \_____\  \ \_____\  \ \__|    \ \_____\  \ \_\ \_\'
-echo '  \/_/ /_/   \/_____/   \/_____/   \/_____/   \/_____/   \/_/      \/_____/   \/_/ /_/'
+echo ' ______    ______    ______    ______    __        __   __  ______    ______   '
+echo '/\  == \  /\  ___\  /\  ___\  /\  __ \  /\ \      /\ \ / / /\  ___\  /\  == \  '
+echo "\ \  __<  \ \  __\  \ \___  \ \ \ \/\ \ \ \ \____ \ \ \'/  \ \  __\  \ \  __<  "
+echo ' \ \_\ \_\ \ \_____\ \/\_____\ \ \_____\ \ \_____\ \ \__|   \ \_____\ \ \_\ \_\'
+echo '  \/_/ /_/  \/_____/  \/_____/  \/_____/  \/_____/  \/_/     \/_____/  \/_/ /_/'
 echo '                                                                                      '
-echo '                                                               𝔳0.3 𝔇𝔢𝔳𝔢𝔩𝔬𝔭𝔢𝔡 𝔟𝔶 𝔢𝔯𝔬𝔰 '
+echo '                                                               𝔳0.1 𝔇𝔢𝔳𝔢𝔩𝔬𝔭𝔢𝔡 𝔟𝔶 𝔢𝔯𝔬𝔰 '
 echo '______________________________________________________________________________________'
 echo ''
 
@@ -26,9 +26,7 @@ echo ---------------------------------
 echo '1. Instalar Servidor DHCP (Disponible)'
 echo '2. Instalar Servidor DNS'
 echo '3. Instalar Servidor FTP'
-echo '	4. Configurar Servidor FTP para usuarios anónimos'
-echo '	5. Configurar Servidor FTP para usuarios del sistema'
-echo '6. Habilitar NAT en Red Interna (Disponible)'
+echo '4. Habilitar NAT en Red Interna (Disponible)'
 echo ---------------------------------
 
 # ------------------- #
@@ -108,31 +106,28 @@ NetDir=/etc/network/interfaces
 DHCPdef="ifdown $DHCPint ; ifup $DHCPint
 auto $DHCPint
 iface $DHCPint inet static
-        address $DHCPip
-        netmask $DHCPmask
-        network $DHCPnet
-        broadcast $DHCPbroad
-        dns-name-server $DHCPdns"
+	address $DHCPip
+	netmask $DHCPmask
+	network $DHCPnet
+	broadcast $DHCPbroad
+	dns-name-server $DHCPdns"
 
 # ~ Función de reemplazo ~ #
 
 function Sed_NETfunc {
 if grep -q iface $NetDir; then
-	sudo tput setaf 1; echo "Se reemplazará la configuración anterior."
-        sudo sed -i "/ifdown/c ifdown $DHCPint ; ifup $DHCPint" $NetDir;
-        sudo sed -i "/auto/c auto $DHCPint" $NetDir;
-        sudo sed -i "/iface/c iface $DHCPint inet static" $NetDir;
-        sudo sed -i "/address/c \	address $DHCPip" $NetDir;
-        sudo sed -i "/netmask/c \	netmask $DHCPmask" $NetDir;
-        sudo sed -i "/network/c \	network $DHCPnet" $NetDir;
-        sudo sed -i "/broadcast/c \	broadcast $DHCPbroad" $NetDir;
-        sudo sed -i "/dns-name-server/c \	dns-name-server $DHCPdns" $NetDir;
-	sudo tput setaf 2; echo "El fichero ha sido reemplazado."
-	sudo tput sgr 0
+	sudo sed -i "/ifdown/c ifdown $DHCPint ; ifup $DHCPint" $NetDir;
+	sudo sed -i "/auto/c auto $DHCPint" $NetDir;
+	sudo sed -i "/iface/c iface $DHCPint inet static" $NetDir;
+	sudo sed -i "/address/c \	address $DHCPip" $NetDir;
+	sudo sed -i "/netmask/c \	netmask $DHCPmask" $NetDir;
+	sudo sed -i "/network/c \	network $DHCPnet" $NetDir;
+	sudo sed -i "/broadcast/c \	broadcast $DHCPbroad" $NetDir;
+	sudo sed -i "/dns-name-server/c \	dns-name-server $DHCPdns" $NetDir;
 else
-        ## Repetición de código condicional sobre la integridad del fichero, >
-        sudo echo "$DHCPdef" >> $NetDir
-        echo "Se han encontrado diferencias, fichero reemplazado."
+## Repetición de código condicional sobre la integridad del fichero
+	sudo echo "$DHCPdef" >> $NetDir
+	echo "Se han encontrado diferencias, fichero reemplazado."
 fi
 }
 
@@ -140,12 +135,12 @@ fi
 
 if [ -e $NetDir ];
 then
-        SedNet=$(Sed_NETfunc) ;
-        echo "El fichero $NetDir ha sido modificado."
+	SedNet=$(Sed_NETfunc) ;
+	echo "El fichero $NetDir ha sido modificado."
 else
-        sudo touch interfaces
-        sudo echo "$DHCPdef" >> $NetDir
-        echo "El fichero $NetDir no existe, generando nuevo fichero."
+	sudo touch interfaces
+	sudo echo "$DHCPdef" >> $NetDir
+	echo "El fichero $NetDir no existe, generando nuevo fichero."
 fi
 
 ###################################
@@ -154,11 +149,11 @@ fi
 
 NMdir=/etc/NetworkManager/NetworkManager.conf
 
-echo "Permitiendo las configuraciones para Network-Manager."
+echo "Activando manejo para Network-Manager."
 	if grep -q managed=false $NMdir; then
-	sudo sed -i "/managed=false/c managed=true" $NMdir;
-	echo "Se han permitido las configuraciones para el servicio Network-Manager."
-		else
+		sudo sed -i "/managed=false/c managed=true" $NMdir;
+		echo "Se han permitido las configuraciones para el servicio Network-Manager."
+	else
 		echo "Manejo para Network-Manager correcto."
 	fi
 
@@ -226,9 +221,9 @@ DHCPdefault4='max-lease-time 7200;'
 function dhcpd_func {
 if grep -q "# Red Externa" $DHCPconf; then
 	sudo echo "Limpiando configuración anterior"> /dev/tty
-	sudo sudo sed '8,22d' $DHCPconf;
+	sudo sed '8,22d' $DHCPconf;
 	sudo echo "Estableciendo nueva configuración"> /dev/tty
-	$DHCPconf;> /dev/null
+	$DHCPd_conf;
 	sudo tput setaf 1; echo "Se ha limpiado el fichero y aplicado los cambios"
 else
 	sudo echo "Modificando el archivo por primera vez."> /dev/tty
@@ -253,9 +248,8 @@ else
         sudo sed -i '21i \'" max-lease-time 7200;" $DHCPconf;
         sudo sed -i '22i '"}" $DHCPconf;
 	sudo tput setaf 1; echo "Se han aplicado los cambios"
-	sudo tput sgr 0
 fi
-}> /dev/tty
+}
 
 # ~ Orden de reemplazo (función conocida) ~ #
 
@@ -263,10 +257,8 @@ if [ -d $DHCPdir ];
 then
 	sudo tput setaf 3; echo 'Se modificarán las preferencias para el servidor dhcp.'
 	DHCPd_conf=$(dhcpd_func) ;
-	sudo tput sgr 0
 else
 	sudo tput setaf 1; echo 'No se ha encontrado el fichero, reinstala el servidor isc-dhcp-server'
-	sudo tput sgr 0
 fi
 
 
@@ -291,23 +283,14 @@ function FTP_func {
 echo 'Próximamente'> /dev/tty
 }
 
-function FTPa_func {
-echo 'FTP para usuarios anónimos'> /dev/tty
-}
-
-function FTPsy_func {
-echo 'FTP para usuarios del sistema'> /dev/tty
-}
-
 function NAT_func {
 
 # Entorno NAT
 
-
-sudo tput setaf 3;echo '¿Qué red utilizará DHCP? (Ejemplo de formato 192.168.1.0)'> /dev/tty
+echo '¿Qué red utilizará DHCP? (Ejemplo de formato 192.168.1.0)'> /dev/tty
 read net
 
-sudo tput setaf 3;echo '¿Qué máscara utilizará? (Ejemplo de formato 24)'> /dev/tty
+echo '¿Qué máscara utilizará? (Ejemplo de formato 24)'> /dev/tty
 read mask
 
 echo '-----------------------'> /dev/tty
@@ -340,10 +323,6 @@ case $Elegir in
 	3) echo ---------------------------------
 	FTP=$(FTP_func) ;;
 	4) echo ---------------------------------
-	FTPan=$(FTPa_func) ;;
-	5) echo ---------------------------------
-	FTPsy=$(FTPsy_func) ;;
-	6) echo ---------------------------------
 	NAT=$(NAT_func) ;;
 	*)
 esac
