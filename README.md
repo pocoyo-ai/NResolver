@@ -8,11 +8,12 @@ Requerimientos:
   
 Instalación:
   1. Git clone https://github.com/pocoyo-ai/NResolver/
+  2. cd NResolver
   2. sudo chmod +777 $home/NResolver/NResolver.sh
   
 Utilización:
   3. sudo $home/NResolver/NResolver.sh
   
-                                                                                                           RULZZ ~~~~
+                                                                                                          RULZZ ~~~~
 
 Programa para utilización educacional.
