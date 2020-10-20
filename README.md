@@ -7,12 +7,12 @@ Requerimientos:
   2. Segunda tarjeta en red interna
   
 Instalación:
-  1. Git clone https://github.com/pocoyo-ai/autodhcp/
-  2. sudo chmod +777 $home/autodhcp/NResolver.sh
+  1. Git clone https://github.com/pocoyo-ai/NResolver/
+  2. sudo chmod +777 $home/NResolver/NResolver.sh
   
 Utilización:
-  3. sudo $home/autodhcp/NResolver.sh
+  3. sudo $home/NResolver/NResolver.sh
   
-RULZZ ~~~~
+                                                                                                           RULZZ ~~~~
 
-Programa de utilización educacional.
+Programa para utilización educacional.
