@@ -1,7 +1,11 @@
 # N Resolver
 
-Primer shell desarrollado con el objetivo de realizar una instalación limpia de DHCP entre dos equipos virtuales.
+Descripción: Shell desarrollado para dos equipos virtuales donde podrás instalar servicios como DHCP, DNS, FTP y Voip.
 
+Requerimientos: 
+  1. Primera tarjeta de red en adaptador puente
+  2. Segunda tarjeta en red interna
+  
 Instalación:
   1. Git clone https://github.com/pocoyo-ai/autodhcp/
   2. sudo chmod +777 $home/autodhcp/NResolver.sh
