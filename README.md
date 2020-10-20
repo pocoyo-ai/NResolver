@@ -7,7 +7,7 @@ Requerimientos:
   2. Segunda tarjeta en red interna
   
 Instalación:
-  1. Git clone https://github.com/pocoyo-ai/NResolver/
+  1. git clone https://github.com/pocoyo-ai/NResolver/
   2. cd NResolver
   2. sudo chmod +777 NResolver.sh
   
